@@ -10,6 +10,7 @@ const TestPage = () => {
   const slug = search.get("topic");
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
   // Get questions for the selected slug
   const questions = slug ? QUESTIONS_DATA[slug as string] : undefined;
   console.log("questions: ", questions);
@@ -24,6 +25,9 @@ const TestPage = () => {
     if (!selectedAnswer) {
       alert("Please select an option!");
       return;
+    }
+    if(selectedAnswer===currentQuestion?.answer){
+       setCorrectAnswers((prev)=>prev+1)
     }
     setSelectedAnswer(null);
     setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -80,7 +84,7 @@ const TestPage = () => {
             Congratulations 🚀 You have completed the test. <br />
             <Link
               className="text-blue-600 ml-2"
-              href={`/result?correctAnswers=${5}&totalQuestions=${10}`}
+              href={`/result?correctAnswers=${correctAnswers}&totalQuestions=${questions.length}`}
             >
               View Score
             </Link>
