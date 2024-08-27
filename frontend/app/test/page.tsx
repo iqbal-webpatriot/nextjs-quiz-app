@@ -3,7 +3,7 @@ import { QUESTIONS_DATA } from "@/data/question";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 // app/test/page.tsx
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const TestPage = () => {
   const search = useSearchParams();
@@ -13,13 +13,13 @@ const TestPage = () => {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   // Get questions for the selected slug
   const questions = slug ? QUESTIONS_DATA[slug as string] : undefined;
-  console.log("questions: ", questions);
+//   console.log("questions: ", questions);
   const currentQuestion = questions && questions[currentQuestionIndex];
-  console.log("currentQuestion: ", currentQuestion);
+//   console.log("currentQuestion: ", currentQuestion);
   const handleAnswerSelect = (answer: string) => {
     setSelectedAnswer(answer);
   };
-  console.log("selectedAnswer: ", selectedAnswer);
+//   console.log("selectedAnswer: ", selectedAnswer);
 
   const handleNextQuestion = () => {
     if (!selectedAnswer) {

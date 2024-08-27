@@ -35,10 +35,10 @@ export default function ResultPage() {
     {correctAnswers === 0 && (
       <p className="text-red-500 font-bold text-2xl">Failed 😞</p>
     )}
-    {correctAnswers > 0 && correctAnswers / totalQuestions < 0.5 && (
+    {correctAnswers > 0 && correctAnswers / totalQuestions < 0.3 && (
       <p className="text-red-500 font-bold text-2xl">Failed 😞</p>
     )}
-    {correctAnswers / totalQuestions >= 0.5 && correctAnswers / totalQuestions < 0.8 && (
+    {correctAnswers / totalQuestions >= 0.3 && correctAnswers / totalQuestions < 0.8 && (
       <p className="text-yellow-500 font-bold text-2xl">Need Improvement 😊</p>
     )}
     {correctAnswers / totalQuestions >= 0.8 && (
