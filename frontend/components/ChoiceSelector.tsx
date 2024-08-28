@@ -1,15 +1,16 @@
 "use client";
 import { useEffect, useState } from "react";
-type ItemOption = {
+export type ItemOption = {
   id: number;
   title: string;
   description?: string;
-  icon?: SVGElement;
+  icon?: string;
 };
 
 interface ChoiceSelectorProps {
   onOptionSelect: (option: ItemOption[]) => void;
   options: ItemOption[]; // Dynamic options
+  selectedOption?:ItemOption[]  | undefined
   label: string; // Label for the selector
   isMultiple?: boolean;
   listIcon?:boolean
@@ -20,11 +21,10 @@ export default function ChoiceSelector({
   options,
   label,
   isMultiple = false,
-  listIcon=false
+  listIcon=false,
+  selectedOption=undefined
 }: ChoiceSelectorProps) {
-  const [currentChoice, setCurrentChoise] = useState<ItemOption[] | undefined>(
-    undefined
-  );
+  const [currentChoice, setCurrentChoise] = useState(selectedOption)
   const handlerChoseSelection = (isMulti = isMultiple, option: ItemOption) => {
     if (isMulti && currentChoice) {
       // Toggle selection for multiple choice
@@ -61,7 +61,7 @@ export default function ChoiceSelector({
                 handlerChoseSelection(isMultiple, option);
               }}
               key={option.id}
-              className="w-[20rem] h-[8rem]"
+              className="w-[20rem] h-[8rem] hover:scale-105 transform transition-transform duration-300 "
             >
               <input
                 type="checkbox"
