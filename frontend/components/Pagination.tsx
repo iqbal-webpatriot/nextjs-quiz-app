@@ -17,8 +17,7 @@ const Pagination: React.FC<PaginationProps> = ({
     <div className="w-full flex justify-between  items-center  gap-4 mt-4">
       <button
         onClick={onPrevious}
-        disabled={!hasPrevious}
-        className={`px-10 py-3  rounded-md bg-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors ${!hasPrevious ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+        className={`px-10 py-3  rounded-md bg-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors ${!hasPrevious ? 'invisible' : 'visible cursor-pointer'}`}
       >
         Go Back
       </button>
