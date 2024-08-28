@@ -76,7 +76,7 @@ export default function ChoiceSelector({
          
         </div>
       <ul className="grid w-full h-auto gap-6 md:grid-cols-3 place-content-center place-items-center">
-        {loading
+        {loading && selectedOption===undefined
             ? Array(3) // Adjust the number based on how many skeletons you want
                 .fill(0)
                 .map((_, index) => <SkeletonPlaceholder key={index} />) :options.map((option, index) => {
