@@ -12,14 +12,25 @@ interface ChoiceSelectorProps {
   options: ItemOption[]; // Dynamic options
   selectedOption?:ItemOption[]  | undefined
   label: string; // Label for the selector
+  description?:string;
   isMultiple?: boolean;
   listIcon?:boolean
+}
+function SkeletonPlaceholder() {
+  return (
+    <div className="block p-6 bg-gray-300 animate-pulse text-gray-300 rounded-lg shadow-lg">
+      <div className="w-[20rem] h-4 bg-gray-400 rounded mb-4"></div>
+      <div className="h-4 bg-gray-400 rounded mb-2"></div>
+      <div className="h-4 bg-gray-400 rounded"></div>
+    </div>
+  );
 }
 
 export default function ChoiceSelector({
   onOptionSelect,
   options,
   label,
+  description,
   isMultiple = false,
   listIcon=false,
   selectedOption=undefined
@@ -41,6 +52,14 @@ export default function ChoiceSelector({
       setCurrentChoise([option]);
     }
   };
+  const [loading, setLoading] = useState(true);
+   
+
+  useEffect(() => {
+    // Simulate loading time
+    const timer = setTimeout(() => setLoading(false), 2000); // 2 seconds
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (currentChoice) {
@@ -50,9 +69,17 @@ export default function ChoiceSelector({
 
   return (
     <div className="grid place-items-center">
-      <h3 className="text-5xl font-extrabold mb-10">{label}</h3>
-      <ul className="grid w-full gap-6 md:grid-cols-3 place-content-center place-items-center">
-        {options.map((option, index) => {
+      <div className="text-center mb-6">
+         
+            <h1 className="text-5xl font-extrabold mb-4 ">{label}</h1>
+            {description && <p className="text-xl">{description}</p>}
+         
+        </div>
+      <ul className="grid w-full h-auto gap-6 md:grid-cols-3 place-content-center place-items-center">
+        {loading
+            ? Array(3) // Adjust the number based on how many skeletons you want
+                .fill(0)
+                .map((_, index) => <SkeletonPlaceholder key={index} />) :options.map((option, index) => {
           return (
             <li
               onClick={(e) => {
