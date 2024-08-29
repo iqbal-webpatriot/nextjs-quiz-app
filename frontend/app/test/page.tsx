@@ -85,7 +85,7 @@ const TestPage = () => {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 via-blue-300 to-blue-500 p-6">
         <div className="bg-gradient-to-br from-indigo-500 to-indigo-700 text-white p-6 w-[28rem] h-[7rem] rounded-lg shadow-md font-medium text-xl text-center transition-transform transform hover:scale-105 hover:shadow-xl">
-          Oops! Something went wrong. <br />
+        Failed to load quiz data. Please try again. <br />
           <button
             className="text-yellow-400 underline hover:text-yellow-300 ml-1"
             onClick={() => {
