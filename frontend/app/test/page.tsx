@@ -1,9 +1,14 @@
 "use client";
 import { Question, QUESTIONS_DATA } from "@/data/question";
 import { getCustomeQuizData } from "@/data/quiz-data";
-import { useAppSelector } from "@/Redux/App/hooks";
+import { useAppDispatch, useAppSelector } from "@/Redux/App/hooks";
+import {
+  resetStepsData,
+  updateAnswers,
+  updateTotalQuestion,
+} from "@/Redux/Features/commonSlice";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const SkeletonPlaceholder = () => (
@@ -16,10 +21,7 @@ const SkeletonPlaceholder = () => (
       {Array(4)
         .fill(0)
         .map((_, index) => (
-          <div
-            key={index}
-            className="w-full p-4 rounded-lg bg-gray-400"
-          ></div>
+          <div key={index} className="w-full p-4 rounded-lg bg-gray-400"></div>
         ))}
     </div>
     <div className="flex justify-center mt-6 w-full">
@@ -29,22 +31,26 @@ const SkeletonPlaceholder = () => (
 );
 
 const TestPage = () => {
-  const search = useSearchParams();
-  const slug = search.get("topic");
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [correctAnswers, setCorrectAnswers] = useState(0);
   const [loading, setLoading] = useState(true); // Loading state
-  const {selectedExperience,selectedRole,selectedTopics}=useAppSelector((store)=>store.commonStore);
-    // Get questions for the selected slug
-  let questions: Question[]=[];
-   if(selectedTopics && selectedRole && selectedExperience){
-     const filteredQusizdata = getCustomeQuizData(selectedTopics,selectedRole,selectedExperience);
-     
-      questions=filteredQusizdata
-   }
+  const router=useRouter();
+  const dispatch = useAppDispatch();
+  const { selectedExperience, selectedRole, selectedTopics } = useAppSelector(
+    (store) => store.commonStore
+  );
+  // Get questions for the selected slug
+  let questions: Question[] = [];
+  if (selectedTopics && selectedRole && selectedExperience) {
+    const filteredQusizdata = getCustomeQuizData(
+      selectedTopics,
+      selectedRole,
+      selectedExperience
+    );
 
- 
+    questions = filteredQusizdata;
+  }
+
   const currentQuestion = questions && questions[currentQuestionIndex];
 
   useEffect(() => {
@@ -52,6 +58,10 @@ const TestPage = () => {
     const timer = setTimeout(() => setLoading(false), 2000); // 2 seconds
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    dispatch(updateTotalQuestion(questions.length));
+  }, [questions]);
 
   const handleAnswerSelect = (answer: string) => {
     setSelectedAnswer(answer);
@@ -63,12 +73,32 @@ const TestPage = () => {
       return;
     }
     if (selectedAnswer === currentQuestion?.answer) {
-      setCorrectAnswers((prev) => prev + 1);
+      dispatch(updateAnswers());
     }
     setSelectedAnswer(null);
     setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
+  if (!loading && questions.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 via-blue-300 to-blue-500 p-6">
+        <div className="bg-gradient-to-br from-indigo-500 to-indigo-700 text-white p-6 w-[28rem] h-[7rem] rounded-lg shadow-md font-medium text-xl text-center transition-transform transform hover:scale-105 hover:shadow-xl">
+          Oops! Something went wrong. <br />
+          <button
+            className="text-yellow-400 underline hover:text-yellow-300 ml-1"
+           onClick={()=>{
+              dispatch(resetStepsData());
+              setTimeout(() => {
+                router.push('/')
+              }, 0);
+           }}
+          >
 
+            Go to Home
+          </button>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-100 via-purple-300 to-purple-500 p-4">
       <h1 className="text-5xl font-extrabold text-white mb-8 drop-shadow-lg">
@@ -121,10 +151,7 @@ const TestPage = () => {
           ) : currentQuestionIndex === questions?.length ? (
             <div className="bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white p-4 rounded-lg shadow-lg font-semibold text-center transition-transform transform hover:scale-105 hover:shadow-xl">
               Congratulations 🚀 You have completed the test. <br />
-              <Link
-                className="text-blue-600 ml-2"
-                href={`/result?correctAnswers=${correctAnswers}&totalQuestions=${questions.length}`}
-              >
+              <Link className="text-blue-600 ml-2" href={`/result?`}>
                 View Score
               </Link>
             </div>
