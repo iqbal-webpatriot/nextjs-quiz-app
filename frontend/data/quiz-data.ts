@@ -323,9 +323,9 @@ export const getCustomeQuizData= ( selectedTopics:ItemOption[], selectedCategory
     const topicData = quizData.quesitons.filter(q => q.name === topic.title);
     //  
     if (topicData) {
-      const topicQuestions = topicData[0].questions.filter(q => 
+      const topicQuestions = topicData?.[0]?.questions.filter(q => 
         q.category.toLocaleLowerCase() === selectedCategory[0].title.split(" ")[0].toLocaleLowerCase() && q.experience === selectedExperience[0].title
-      );
+      ) || [];
       filteredQuestions.push(...topicQuestions);
     }
   });
