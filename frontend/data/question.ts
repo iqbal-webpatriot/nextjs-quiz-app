@@ -222,4 +222,122 @@ export const SAMPLE_TOPICS: Topic[] = [
     // Add more topics as needed
   };
   
+  export const Roles=[
+    {
+      id: 1,
+      title: "Frontend Developer",
+      description: "Start the quiz to test your UI/UX skills!"
+    },
+    {
+      id: 2,
+      title: "Backend Developer",
+      description: "Begin the quiz to challenge your server-side expertise!"
+    },
+    {
+      id: 3,
+      title: "Full Stack Developer",
+      description: "Take the quiz to showcase your all-round development skills!"
+    }
+  ]
+ export  const technologies = [
+    {
+      id: 1,
+      title: "React JS",
+      description: "Dive into React JS and prove your frontend expertise!",
+      category:'Frontend'
+    },
+    {
+      id: 2,
+      title: "HTML",
+      description: "Test your knowledge of HTML, the backbone of web development!",
+       category:'Frontend'
+    },
+    {
+      id: 3,
+      title: "CSS",
+      description: "Show off your CSS skills and styling mastery!",
+       category:'Frontend'
+    },
+    {
+      id: 4,
+      title: "JavaScript",
+      description: "Assess your JavaScript abilities with challenging questions!",
+       category:'Frontend'
+    },
+    {
+      id: 5,
+      title: "Node JS",
+      description: "Demonstrate your backend skills with Node JS quiz!",
+       category:'Backend'
+    },
+    {
+      id: 6,
+      title: "MERN Stack",
+      description: "Test your full-stack development skills with the MERN stack!",
+       category:'Full Stack Development'
+    },
+    {
+      id: 7,
+      title: "MEAN Stack",
+      description: "Evaluate your full-stack development knowledge in the MEAN stack!",
+      category:'Full Stack Development'
+    },
+    {
+      id: 8,
+      title: "PHP",
+      description: "Check your backend expertise with PHP quiz!",
+      category:'Backend'
+    },
+    {
+      id: 9,
+      title: "Laravel",
+      description: "Prove your proficiency in Laravel with these questions!",
+      category:'Backend'
+    },
+    {
+      id: 10,
+      title: "CodeIgniter",
+      description: "Test your skills in CodeIgniter framework!",
+      category:'Backend'
+    },
+    {
+      id: 11,
+      title: "AWS Server",
+      description: "Assess your cloud computing knowledge with AWS server quiz!",
+      category:'Backend'
+    },
+    {
+      id: 12,
+      title: "MySQL",
+      description: "Test your database management skills with MySQL!",
+      category:'Backend'
+    },
+    {
+      id: 13,
+      title: "PostgreSQL",
+      description: "Evaluate your proficiency in PostgreSQL database management!",
+      category:'Backend'
+    },
+  ];
   
+  export const experienceLevels = [
+    {
+      id: 1,
+      title: "Beginner",
+      description: "Start the quiz to test your foundational knowledge!",
+    },
+    {
+      id: 2,
+      title: "Intermediate",
+      description: "Challenge yourself with intermediate-level questions!",
+    },
+    {
+      id: 3,
+      title: "Advanced",
+      description: "Prove your expertise with advanced quiz questions!",
+    },
+  ];
+ export const getFilteredTechnologies= (categoryName:string)=>{
+  console.log('category name',categoryName)
+     return technologies.filter((option)=>option.category===categoryName)
+ }  

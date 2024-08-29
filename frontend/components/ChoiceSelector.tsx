@@ -68,7 +68,7 @@ export default function ChoiceSelector({
   }, [currentChoice]);
 
   return (
-    <div className="grid place-items-center">
+    <div className="grid place-items-center p-8">
       <div className="text-center mb-6">
          
             <h1 className="text-5xl font-extrabold mb-4 ">{label}</h1>
