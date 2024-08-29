@@ -34,7 +34,7 @@ const TestPage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [loading, setLoading] = useState(true); // Loading state
-  const router=useRouter();
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const { selectedExperience, selectedRole, selectedTopics } = useAppSelector(
     (store) => store.commonStore
@@ -56,7 +56,10 @@ const TestPage = () => {
   useEffect(() => {
     // Simulate loading time
     const timer = setTimeout(() => setLoading(false), 2000); // 2 seconds
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      dispatch(resetStepsData());
+    };
   }, []);
 
   useEffect(() => {
@@ -85,14 +88,13 @@ const TestPage = () => {
           Oops! Something went wrong. <br />
           <button
             className="text-yellow-400 underline hover:text-yellow-300 ml-1"
-           onClick={()=>{
+            onClick={() => {
               dispatch(resetStepsData());
               setTimeout(() => {
-                router.push('/')
+                router.push("/");
               }, 0);
-           }}
+            }}
           >
-
             Go to Home
           </button>
         </div>
@@ -102,7 +104,9 @@ const TestPage = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-100 via-purple-300 to-purple-500 p-4">
       <h1 className="text-5xl font-extrabold text-white mb-8 drop-shadow-lg">
-        {!currentQuestion && currentQuestionIndex === questions?.length
+        {loading
+          ? "Loading..."
+          : !currentQuestion && currentQuestionIndex === questions?.length
           ? "Quiz Over!"
           : "Quiz Time!"}
       </h1>
