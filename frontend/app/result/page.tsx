@@ -1,12 +1,21 @@
 "use client"
 
+import { useAppDispatch } from "@/Redux/App/hooks";
+import { resetStepsData } from "@/Redux/Features/commonSlice";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 export default function ResultPage() {
     const router = useRouter();
     const searchParms=useSearchParams();
+    const dispatch=useAppDispatch();
     const correctAnswers=Number(searchParms.get('correctAnswers'));
     const totalQuestions=Number(searchParms.get('totalQuestions'));
+    useEffect(()=>{
+      return ()=>{
+         dispatch(resetStepsData())
+      }
+    },[])
 
 
   return (

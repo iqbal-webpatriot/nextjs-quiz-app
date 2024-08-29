@@ -338,6 +338,6 @@ export const SAMPLE_TOPICS: Topic[] = [
     },
   ];
  export const getFilteredTechnologies= (categoryName:string)=>{
-  console.log('category name',categoryName)
+  
      return technologies.filter((option)=>option.category===categoryName)
  }  

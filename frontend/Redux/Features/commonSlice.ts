@@ -31,8 +31,13 @@ export const commonSlice=createSlice({
           updateSelectedExperience:(state,action:PayloadAction<ItemOption[] | undefined>)=>{
             state.selectedExperience=action.payload 
           },
+          resetStepsData:(state)=>{
+            state.selectedExperience=undefined;
+            state.selectedRole=undefined;
+            state.selectedTopics=undefined
+          },
        
     }
 })
-export const {updateSelectedRole,updateSelectedExperience,updateSelectedTopics}=commonSlice.actions
+export const {updateSelectedRole,updateSelectedExperience,updateSelectedTopics,resetStepsData}=commonSlice.actions
 export default commonSlice.reducer

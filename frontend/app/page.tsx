@@ -62,7 +62,7 @@ export const STEP_WISE_COMPONENTS = [
           roleBaseTechnologies= technologies
         }
        }
-       console.log('roleBaseTechnologies',roleBaseTechnologies)
+       
       return (
         <RoleSelection
           onOptionSelect={(role) => dispatch(updateSelectedTopics(role))}
@@ -106,19 +106,23 @@ export default function Home() {
   return (
     <>
       <div className=" w-full  grid place-content-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 text-white">
-        {/* <RoleSelection onOptionSelect={(role)=>console.log("all options on home page",role)} label="Choose Role" options={Roles} listIcon/>
+        {/* <RoleSelection onOptionSelect={(role)=>} label="Choose Role" options={Roles} listIcon/>
         <TopicList/> */}
         <div className="container">
           <StepBlockComp />
           <div className="w-full  mt-10">
             <Pagination
               onNext={() => {
-                 if(steps !== STEP_WISE_COMPONENTS.length - 1 && StepBlockValues[steps]===undefined){
+                 if( StepBlockValues[steps]===undefined){
                    alert("Option selection is  required !");
                    return
                  }
                 if (steps === STEP_WISE_COMPONENTS.length - 1) {
-                 router.push('/test?topic=technology');
+                 const prompt= confirm("Do you want to start test with current selection?");
+                  if(prompt){
+                    router.push('/test');
+                    return
+                  }
                  return
                 };
                 setSteps((prev) => prev + 1);
@@ -130,6 +134,7 @@ export default function Home() {
               }}
               hasNext={steps <= STEP_WISE_COMPONENTS.length - 1}
               hasPrevious={steps >0}
+              
             />
           </div>
         </div>

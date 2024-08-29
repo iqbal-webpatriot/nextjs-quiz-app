@@ -1,3 +1,5 @@
+import { ItemOption } from '@/components/ChoiceSelector';
+
 const quizData = {
   quesitons: [
     {
@@ -314,19 +316,20 @@ const quizData = {
   ],
 
 };
-export const getCustomeQuizData=(role:string,category:string,experience:string,)=>{
-    const quizSection = quizData.quesitons.find(quiz => quiz.name === role);
+export const getCustomeQuizData= ( selectedTopics:ItemOption[], selectedCategory:ItemOption[], selectedExperience:ItemOption[])=> {
+  const filteredQuestions: { id: number; question: string; options: string[]; category: string; experience: string; answer: string; }[] = [];
 
-    if (!quizSection) {
-      return []; // No quiz section found with the given name
+  selectedTopics.forEach(topic => {
+    const topicData = quizData.quesitons.filter(q => q.name === topic.title);
+    //  
+    if (topicData) {
+      const topicQuestions = topicData[0].questions.filter(q => 
+        q.category.toLocaleLowerCase() === selectedCategory[0].title.split(" ")[0].toLocaleLowerCase() && q.experience === selectedExperience[0].title
+      );
+      filteredQuestions.push(...topicQuestions);
     }
-  
-    // Filter questions by category and experience
-    return quizSection.questions.filter(
-      question =>
-        question.category === category &&
-        question.experience === experience
-    );
+  });
 
+  return filteredQuestions;
 }
 export default quizData;

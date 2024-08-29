@@ -1,5 +1,5 @@
 "use client";
-import { QUESTIONS_DATA } from "@/data/question";
+import { Question, QUESTIONS_DATA } from "@/data/question";
 import { getCustomeQuizData } from "@/data/quiz-data";
 import { useAppSelector } from "@/Redux/App/hooks";
 import Link from "next/link";
@@ -36,12 +36,15 @@ const TestPage = () => {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [loading, setLoading] = useState(true); // Loading state
   const {selectedExperience,selectedRole,selectedTopics}=useAppSelector((store)=>store.commonStore);
+    // Get questions for the selected slug
+  let questions: Question[]=[];
    if(selectedTopics && selectedRole && selectedExperience){
-     const filteredQusizdata = getCustomeQuizData(selectedRole?.[0]?.title?.split('')?.[0],'','')
+     const filteredQusizdata = getCustomeQuizData(selectedTopics,selectedRole,selectedExperience);
+     
+      questions=filteredQusizdata
    }
 
-  // Get questions for the selected slug
-  const questions = slug ? QUESTIONS_DATA[slug as string] : undefined;
+ 
   const currentQuestion = questions && questions[currentQuestionIndex];
 
   useEffect(() => {
