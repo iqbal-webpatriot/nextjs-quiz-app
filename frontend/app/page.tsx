@@ -68,7 +68,7 @@ export const STEP_WISE_COMPONENTS = [
           onOptionSelect={(role) => dispatch(updateSelectedTopics(role))}
           label="Choose Topics"
           description="Select topics to prepare your questions for the quiz."
-          options={roleBaseTechnologies}
+          options={roleBaseTechnologies || technologies}
           isMultiple
           selectedOption={selectedTopics}
           {...props}
@@ -99,7 +99,10 @@ export const STEP_WISE_COMPONENTS = [
 export default function Home() {
   const router= useRouter();
   const [steps, setSteps] = useState(0);
-  const StepBlockComp = STEP_WISE_COMPONENTS[steps].component;
+  const Total_Steps= (STEP_WISE_COMPONENTS.length-1);
+  const StepBlockComp = steps<=Total_Steps? STEP_WISE_COMPONENTS[steps]?.component :()=><div></div>;
+  const {selectedRole,selectedTopics,selectedExperience} = useAppSelector((store)=>store.commonStore);
+   const StepBlockValues=[selectedRole,selectedTopics,selectedExperience];
   return (
     <>
       <div className=" w-full  grid place-content-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 text-white">
@@ -110,8 +113,13 @@ export default function Home() {
           <div className="w-full  mt-10">
             <Pagination
               onNext={() => {
+                 if(steps !== STEP_WISE_COMPONENTS.length - 1 && StepBlockValues[steps]===undefined){
+                   alert("Option selection is  required !");
+                   return
+                 }
                 if (steps === STEP_WISE_COMPONENTS.length - 1) {
-                 router.push('/test?topic=technology')
+                 router.push('/test?topic=technology');
+                 return
                 };
                 setSteps((prev) => prev + 1);
               }}
