@@ -59,7 +59,7 @@ export const STEP_WISE_COMPONENTS = [
         }
         else {
 
-          roleBaseTechnologies= technologies
+          roleBaseTechnologies= getFilteredTechnologies("Full Stack Development")
         }
        }
        

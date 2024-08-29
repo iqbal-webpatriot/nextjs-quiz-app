@@ -318,6 +318,24 @@ export const SAMPLE_TOPICS: Topic[] = [
       description: "Evaluate your proficiency in PostgreSQL database management!",
       category:'Backend'
     },
+    {
+      id: 14,
+      title: "LAMP Stack",
+      description: "Test your knowledge of the LAMP stack, including Linux, Apache, MySQL, and PHP!",
+      category: "Full Stack Development",
+    },
+    {
+      id: 15,
+      title: "LEMP Stack",
+      description: "Evaluate your expertise in the LEMP stack, featuring Linux, Nginx, MySQL, and PHP!",
+      category: "Full Stack Development",
+    },
+    {
+      id: 16,
+      title: "MEVN Stack",
+      description: "Assess your skills in the MEVN stack with MongoDB, Express.js, Vue.js, and Node.js!",
+      category: "Full Stack Development",
+    },
   ];
   
   export const experienceLevels = [
