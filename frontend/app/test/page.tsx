@@ -58,7 +58,7 @@ const TestPage = () => {
     const timer = setTimeout(() => setLoading(false), 2000); // 2 seconds
     return () => {
       clearTimeout(timer);
-      dispatch(resetStepsData());
+     
     };
   }, []);
 
